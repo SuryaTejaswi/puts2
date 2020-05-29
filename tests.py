@@ -15,6 +15,10 @@ class OnlineCalculatorTestCase(unittest.TestCase):
         response = self.app.get('/')
         self.assertEqual(b'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n', response.data)
 
+    def test_subtraction(self):
+        response = self.app.get('/sub?A=3&B=1')
+        self.assertEqual(b'2 \n', response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
