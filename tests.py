@@ -10,15 +10,16 @@ class OnlineCalculatorTestCase(unittest.TestCase):
         main.app.testing = True
         self.app = main.app.test_client()
 
-    def test_no_resources(self):
-        """Test for no route"""
-        response = self.app.get('/')
-        self.assertEqual(b'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n', response.data)
-
     def test_division(self):
         """Test for division"""
         response = self.app.get('/div?A=6&B=3')
         self.assertEqual(b'2 \n', response.data)
+        response = self.app.get('/div?A=5&B=3')
+        self.assertEqual(b'1.667 \n', response.data)
+        response = self.app.get('/div?A=5/3&B=3/4')
+        self.assertEqual(b'2.222 \n', response.data)
+        response = self.app.get('/div?A=5.4&B=3.4678')
+        self.assertEqual(b'1.557 \n', response.data)
 
 
 if __name__ == '__main__':
