@@ -15,6 +15,11 @@ class OnlineCalculatorTestCase(unittest.TestCase):
         response = self.app.get('/')
         self.assertEqual(b'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n', response.data)
 
+    def test_addition(self):
+        """Test for addition resource"""
+        response = self.app.get('/add?A=5&B=3')
+        self.assertEqual(b'8 \n', response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
