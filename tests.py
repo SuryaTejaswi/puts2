@@ -15,6 +15,11 @@ class OnlineCalculatorTestCase(unittest.TestCase):
         response = self.app.get('/')
         self.assertEqual(b'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n', response.data)
 
+    def test_multiplication(self):
+        """Test for multiplication resource"""
+        response = self.app.get('/mul?A=5&B=4')
+        self.assertEqual(b'20 \n', response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
