@@ -29,7 +29,7 @@ def inputs():
     return value1, value2
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return 'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n'
 
