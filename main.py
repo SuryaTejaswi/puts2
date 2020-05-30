@@ -29,7 +29,7 @@ def inputs():
     return value1, value2
 
 
-@app.route('/sub')
+@app.route('/sub' ,methods=['GET', 'POST'])
 def subtraction():
     try:
         value1, value2 = inputs()
@@ -38,10 +38,7 @@ def subtraction():
         error_msg = inputs()
         return error_msg
     else:
-        if float(result).is_integer():
-            result = int(result)
-            return '%d \n' % result
-        return '%.3f \n' % result
+        return str(round(float(result),4)) + '\n'
 
 
 if __name__ == "__main__":
