@@ -62,7 +62,7 @@ class OnlineCalculatorTestCase(unittest.TestCase):
 
         # Handling of POST Method 
         response = self.app.post('/add?A=1&B=2)')
-        self.assertEqual(b'B should be a number (includes integers, rationals, float)! \n', response.datagit add )
+        self.assertEqual(b'B should be a number (includes integers, rationals, float)! \n', response.data)
 
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ def inputs():
     return value1, value2
 
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def addition():
     try:
         value1, value2 = inputs()
@@ -38,7 +38,7 @@ def addition():
         error_msg = inputs()
         return error_msg
     else:
-        return str(float(result)) + ' \n '
+        return str(round(float(result), 4)) + ' \n'
 
 
 if __name__ == "__main__":
