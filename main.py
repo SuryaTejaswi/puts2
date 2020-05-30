@@ -70,5 +70,21 @@ def multiplication():
         return str(round(float(result), 4)) + '\n'
 
 
+@app.route('/div', methods=['GET', 'POST'])
+def division():
+    try:
+        value1, value2 = inputs()
+        try:
+            result = ((value1) / (value2))
+        except ZeroDivisionError:
+            error_msg = "B's value shouldn't be zero! \n"
+            return error_msg
+    except ValueError:
+        warning_msg = inputs()
+        return warning_msg
+    else:
+        return str(round(float(result), 4)) + '\n'
+
+
 if __name__ == "__main__":
     app.run()
