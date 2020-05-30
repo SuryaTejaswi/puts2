@@ -58,5 +58,17 @@ def subtraction():
         return str(round(float(result), 4)) + '\n'
 
 
+@app.route('/mul', methods=['GET', 'POST'])
+def multiplication():
+    try:
+        value1, value2 = inputs()
+        result = value1 * value2
+    except ValueError:
+        error_msg = inputs()
+        return error_msg
+    else:
+        return str(round(float(result), 4)) + '\n'
+
+
 if __name__ == "__main__":
     app.run()
