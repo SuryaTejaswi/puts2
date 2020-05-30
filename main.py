@@ -29,7 +29,7 @@ def inputs():
     return value1, value2
 
 
-@app.route('/div')
+@app.route('/div',methods=['GET','POST'])
 def division():
     try:
         value1, value2 = inputs()
@@ -42,10 +42,7 @@ def division():
         warning_msg = inputs()
         return warning_msg
     else:
-        if float(result).is_integer():
-            result = int(result)
-            return '%d \n' % result
-        return '%.3f \n' % result
+        return str(round(float(result),4)) + '\n'
 
 
 if __name__ == "__main__":
