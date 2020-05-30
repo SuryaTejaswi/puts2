@@ -75,7 +75,7 @@ def division():
     try:
         value1, value2 = inputs()
         try:
-            result = ((value1) / (value2))
+            result = (value1 / value2)
         except ZeroDivisionError:
             error_msg = "B's value shouldn't be zero! \n"
             return error_msg

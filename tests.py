@@ -111,11 +111,11 @@ class OnlineCalculatorTestCase(unittest.TestCase):
 
         # when A is a non-number type
         response = self.app.get('/sub?A=x&B=langa')
-        self.assertEqual(b"A should be number(includes integers, rationals, float)! \n", response.data)
+        self.assertEqual(b"A should be a number (includes integers, rationals, float)! \n", response.data)
 
         # when B is a non-number type
         response = self.app.get('/sub?4=1&B=i')
-        self.assertEqual(b"B should be number(includes integers, rationals, float)! \n", response.data)
+        self.assertEqual(b"B should be a number (includes integers, rationals, float)! \n", response.data)
 
         # Handling of POST Method
         response = self.app.post('/sub', data=dict(A='1', B='2'))
@@ -164,15 +164,15 @@ class OnlineCalculatorTestCase(unittest.TestCase):
 
         # when A is a non-number type
         response = self.app.get('/mul?A=x&B=zingo')
-        self.assertEqual(b"A should be number(includes integers, rationals, float)! \n", response.data)
+        self.assertEqual(b"A should be a number (includes integers, rationals, float)! \n", response.data)
 
         # when B is a non-number type
         response = self.app.get('/mul?A=1&B=y')
-        self.assertEqual(b"B should be number(includes integers, rationals, float)! \n", response.data)
+        self.assertEqual(b"B should be a number (includes integers, rationals, float)! \n", response.data)
 
         # Handling of POST method
         response = self.app.post('/mul', data=dict(A='1', B='y'))
-        self.assertEqual(b"0.0\n", response.data)
+        self.assertEqual(b'B should be a number (includes integers, rationals, float)! \n', response.data)
 
     def test_division(self):
         """ Testing division feature of the calculatore"""
@@ -219,12 +219,11 @@ class OnlineCalculatorTestCase(unittest.TestCase):
 
         # when A is a non-number type
         response = self.app.get('/div?A=x&B=auckaa')
-        self.assertEqual(b"A should be number(includes integers, rationals, float)! \n", response.data)
+        self.assertEqual(b"A should be a number (includes integers, rationals, float)! \n", response.data)
 
         # when B is a non-number type
         response = self.app.get('/div?A=1&B=s')
-        self.assertEqual(b"B should be number(includes integers, rationals, float)! \n",
-                         response.data)
+        self.assertEqual(b"B should be a number (includes integers, rationals, float)! \n", response.data)
 
         # Extra case when B is zero
         response = self.app.get('/div?A=1&B=0')
