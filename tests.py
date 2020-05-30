@@ -46,6 +46,26 @@ class OnlineCalculatorTestCase(unittest.TestCase):
         response = self.app.get('/add?A=5&B=3/4')
         self.assertEqual(b'5.750 \n', response.data)
 
+        # corner cases testing
+        # when A = x/0 where x belongs to any integer
+        response = self.app.get('/add?A=-5/0&B=3/4')
+        self.assertEqual(b"A's denominator shouldn't be zero! \n", response.data)
+
+        # when B = x/0 where x belongs to any integer
+        response = self.app.get('/add?A=-2&B=4/0')
+        self.assertEqual(b"B's denominator shouldn't be zero! \n", response.data)
+
+        # when A is a non-number type
+        response = self.app.get('/add?A=x&B=zingo')
+        self.assertEqual(b"A's value should be a number (includes fraction, float, integer). \n", response.data)
+
+        # when B is a non-number type
+        response = self.app.get('/add?A=1&B=y')
+        self.assertEqual(b"B's value should be a number (includes fraction, float, integer). \n", response.data)
+
+        # Handling of POST Method 
+        response = self.app.post('/add', data=dict(A='1', B='2'))
+        self.assertEqual(b'3 \n', response.data)
 
 if __name__ == '__main__':
     unittest.main()
