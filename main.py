@@ -1,90 +1,98 @@
-from fractions import Fraction
-
 from flask import Flask, request
+from fractions import Fraction
+import statistics
 
 app = Flask(__name__)
 
 
-def inputs():
-    if request.method == 'POST':
-        value1 = request.values.get('A', default=0, type=str)
+def input():
+    if request.method != 'GET':
+        a = request.values.get('X', default=0, type=str)
     else:
-        value1 = request.args.get('A', default=0, type=str)
+        a = request.args.get('X', default=0, type=str)
     try:
-        value1 = Fraction(value1)
-    except ZeroDivisionError:
-        return "A's denominator shouldn't be 0! \n"
+        nw = []
+        for val in a.split(','):
+            nw.append(Fraction(val))
     except ValueError:
-        return "A should be a number (includes integers, rationals, float)! \n"
-    if request.method == 'GET':
-        value2 = request.args.get('B', default=0, type=str)
-    else:
-        value2 = request.values.get('B', default=0, type=str)
-    try:
-        value2 = Fraction(value2)
-    except ValueError:
-        return "B should be a number (includes integers, rationals, float)! \n"
-    except ZeroDivisionError:
-        return "B's denominator shouldn't be 0! \n"
-    return value1, value2
+        warning = "Enter a valid input vector. "
+        return warning
+    return nw
 
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
-    return 'Usage;\n<Operation>?A=<Value1>&B=<Value2>\n'
+def empty_route():
+    return 'Usage: <operation>?<X1, X2, X3, ..., XN>\n'
 
 
-@app.route('/add', methods=['GET', 'POST'])
-def addition():
+@app.route('/min', methods=['GET', 'POST'])
+def minimum():
     try:
-        value1, value2 = inputs()
-        result = value1 + value2
+        nw = input()
+        r = min(nw)
     except ValueError:
-        error_msg = inputs()
-        return error_msg
+        warning = input()
+        return warning
     else:
-        return str(round(float(result), 4)) + ' \n'
+        if float(r).is_integer():
+            answer = int(r)
+            return "%d\n" % answer
+        else:
+            return str(float(round(r, 3))) + "\n"
 
 
-@app.route('/sub', methods=['GET', 'POST'])
-def subtraction():
+@app.route('/max', methods=['GET', 'POST'])
+def maximum():
     try:
-        value1, value2 = inputs()
-        result = value1 - value2
+        nw = input()
+        r = max(nw)
     except ValueError:
-        error_msg = inputs()
-        return error_msg
+        warning = input()
+        return warning
     else:
-        return str(round(float(result), 4)) + '\n'
+        if float(r).is_integer():
+            answer = int(r)
+            return "%d\n" % answer
+        else:
+
+            return str(float(round(r, 3))) + "\n"
 
 
-@app.route('/mul', methods=['GET', 'POST'])
-def multiplication():
+@app.route('/mean', methods=['GET', 'POST'])
+@app.route('/average', methods=['GET', 'POST'])
+@app.route('/avg', methods=['GET', 'POST'])
+def mean():
     try:
-        value1, value2 = inputs()
-        result = value1 * value2
+        nw = input()
+        r = statistics.mean(nw)
     except ValueError:
-        error_msg = inputs()
-        return error_msg
+        warning = input()
+        return warning
     else:
-        return str(round(float(result), 4)) + '\n'
+        if float(r).is_integer():
+            answer = int(r)
+            return "%d\n" % answer
+        else:
+
+            return str(float(round(r, 3))) + "\n"
 
 
-@app.route('/div', methods=['GET', 'POST'])
-def division():
+@app.route('/median', methods=['GET', 'POST'])
+def median():
     try:
-        value1, value2 = inputs()
-        try:
-            result = (value1 / value2)
-        except ZeroDivisionError:
-            error_msg = "B's value shouldn't be zero! \n"
-            return error_msg
+        list = input()
+        r = statistics.median(list)
     except ValueError:
-        warning_msg = inputs()
-        return warning_msg
+        warning = in_take()
+        return warning
     else:
-        return str(round(float(result), 4)) + '\n'
+        if float(r).is_integer():
+            r = int(r)
+            return "%d \n" % r
+        else:
+
+            return str(float(round(r, 3))) + " \n"
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=False)
