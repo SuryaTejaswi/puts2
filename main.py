@@ -25,13 +25,11 @@ def input():
     return nw
 
 
-@app.route('/mean', methods=['GET', 'POST'])
-@app.route('/average', methods=['GET', 'POST'])
-@app.route('/avg', methods=['GET', 'POST'])
-def mean():
+@app.route('/max', methods=['GET', 'POST'])
+def maximum():
     try:
         nw = input()
-        r = statistics.mean(nw)
+        r = max(nw)
     except ValueError:
         warning = input()
         return warning
@@ -40,8 +38,5 @@ def mean():
             answer = int(r)
             return "%d \n" % answer
         else:
-            return str(float(round(r, 3))) + " \n"
-
-
-if __name__ == "__main__":
-    app.run(debug=False)
+            
+            return str(float(round(r, 4))) + " \n"
