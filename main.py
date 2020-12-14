@@ -25,18 +25,26 @@ def input():
     return nw
 
 
-@app.route('/max', methods=['GET', 'POST'])
-def maximum():
+@app.route('/median', methods=['GET', 'POST'])
+def median():
     try:
-        nw = input()
-        r = max(nw)
+        list = input()
+        r = statistics.median(list)
     except ValueError:
         warning = input()
         return warning
     else:
         if float(r).is_integer():
-            answer = int(r)
-            return "%d \n" % answer
+            r = int(r)
+            return "%d \n" % r
         else:
-            
+
             return str(float(round(r, 4))) + " \n"
+
+
+if __name__ == "__main__":
+    app.run(debug=False)
+    
+
+
+
